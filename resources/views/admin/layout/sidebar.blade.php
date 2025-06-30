@@ -62,19 +62,6 @@
                         <span>Orders</span>
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="fa-solid fa-user"></i>
-                        <span>Users</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Customers</a></li>
-                        <li><a href="#">Admins</a></li>
-                    </ul>
-                </li>
-
             </ul>
         </div>
         <!-- Sidebar -->
