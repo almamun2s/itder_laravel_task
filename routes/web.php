@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('/create_order', [OrderController::class, 'create_order'])->name('create_order');
     Route::get('/order/{order}', [OrderController::class, 'order_details'])->name('order_details');
+    Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
 
 });
 
