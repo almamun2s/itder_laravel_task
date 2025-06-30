@@ -1,0 +1,108 @@
+@extends('admin.layout.main')
+
+@section('title', 'Update Product')
+
+@section('main_content')
+
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-5">Update Product({{ $product->name }})</h4>
+
+                    <form action="{{ route('admin.product.update', $product) }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label>Product Name</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" name="name" class="form-control" autocomplete="off"
+                                    value="{{ $product->name }}">
+                                @error('name')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-5">
+                                <label>Category</label>
+                            </div>
+                            <div class="col-md-7">
+                                <select name="category" class="form-control">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-5">
+                                <label>Regular Price</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="number" step="0.01" min="0" name="price" class="form-control"
+                                    value="{{ $product->price }}">
+                                @error('price')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-5">
+                                <label>Discount Price</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="number" step="0.01" min="0" name="disc_price" class="form-control"
+                                    value="{{ $product->discount_price }}">
+                                @error('disc_price')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-5">
+                                <label>Description</label>
+                            </div>
+                            <div class="col-md-7">
+                                <textarea name="description" class="form-control">{{ $product->description }}</textarea>
+                                @error('description')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-7">
+                                <input type="submit" value="Update Product" class="btn btn-primary">
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="{{ route('admin.product.destroy', $product) }}" method="post" id="deleteForm">
+                        @csrf
+                        @method('DELETE')
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-danger" id="delete" value="Delete">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

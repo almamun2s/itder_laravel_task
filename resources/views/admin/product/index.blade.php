@@ -1,16 +1,18 @@
 @extends('admin.layout.main')
 
-@section('title', 'Category')
+@section('title', 'Product')
 
 @section('main_content')
+
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title mb-5">All Categories
-                        <a href="{{ route('admin.category.create') }}" class="btn btn-primary" style="float:right;">Add
-                            Category</a>
+                    <h4 class="card-title mb-5">All Products({{ $products->count() }})
+                        <a href="{{ route('admin.product.create') }}" class="btn btn-primary" style="float:right;">Add
+                            Product</a>
                     </h4>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -18,25 +20,32 @@
                             <tr>
                                 <th>SN</th>
                                 <th>Name</th>
-                                <th>Products</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Discount Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
+
                         <tbody>
-                            @foreach ($categories as $key => $category)
+                            @foreach ($products as $key => $product)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $category->name }}</td>
-                                    <td>{{ $category->products->count() }}</td>
-                                    <td><a href="{{ route('admin.category.edit', $category) }}"
-                                            class="btn btn-info">Edit</a></td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ $product->price }}&#2547;</td>
+                                    <td>{{ $product->discount_price }}&#2547;</td>
+                                    <td><a class="btn btn-info" href="{{ route('admin.product.edit', $product) }}">Edit</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
+
 @endsection

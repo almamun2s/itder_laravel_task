@@ -10,7 +10,6 @@
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1">{{ auth()->user()->name }}</h4>
-                {{-- <span class="text-muted">{{ auth()->user()->getRoleNames()->first() }}</span> --}}
             </div>
         </div>
 
@@ -32,7 +31,7 @@
                                 request()->routeIs('admin.category.edit') ||
                                 request()->routeIs('admin.category.create')) mm-active @endif
                         ">
-                    <a href="#" class="waves-effect">
+                    <a href="{{ route('admin.category.index') }}" class="waves-effect">
                         <i class="fa-solid fa-list"></i><span>Category</span>
                     </a>
                 </li>
@@ -42,7 +41,7 @@
                             request()->routeIs('admin.product.edit') ||
                             request()->routeIs('admin.product.create')) mm-active @endif
                 ">
-                    <a href="#" class="waves-effect">
+                    <a href="{{ route('admin.product.index') }}" class="waves-effect">
                         <i class="fa-solid fa-shirt"></i><span>Product</span>
                     </a>
                 </li>
