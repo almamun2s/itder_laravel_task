@@ -48,7 +48,8 @@
                                                     <i class="fa fa-minus"></i>
                                                 </button>
                                             </div>
-                                            <input type="text" class="form-control form-control-sm text-center border-0"
+                                            <input type="text"
+                                                class="qty form-control form-control-sm text-center border-0"
                                                 value="{{ $item->qty }}">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-sm add_qty btn-plus rounded-circle bg-light border"
@@ -108,20 +109,18 @@
     <script>
         $(document).ready(function() {
 
-            let add_qty = $('.add_qty')
             let csrf = $('input[name=_token]').val();
 
+            $('.add_qty').click(function() {
+                const button = $(this); // clicked + button
 
-            add_qty.click(function() {
-
-                var formData = {
+                const formData = {
                     _token: csrf,
-                    rowId: $(this).data('rowid'),
+                    rowId: button.data('rowid'),
                 };
 
-                // AJAX request
                 $.ajax({
-                    url: "{{ route('cart.add_qty') }}", // Laravel route
+                    url: "{{ route('cart.add_qty') }}",
                     type: 'POST',
                     data: JSON.stringify(formData),
                     contentType: 'application/json; charset=utf-8',
@@ -130,26 +129,27 @@
                         'X-CSRF-TOKEN': csrf
                     },
                     success: function(response) {
-                        console.log(response);
-                        $(this).closest('tr').find('.totalCost').text(response.totalCost);
+                        const row = button.closest('tr');
+                        row.find('.totalCost').text(response.totalCost);
+                        row.find('input.qty').val(response
+                            .qty);
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr, status, error);
-
                     }
                 });
             });
 
-            let sub_qty = $('.sub_qty');
-            sub_qty.click(function() {
-                var formData = {
+            $('.sub_qty').click(function() {
+                const button = $(this); // clicked - button
+
+                const formData = {
                     _token: csrf,
-                    rowId: $(this).data('rowid'),
+                    rowId: button.data('rowid'),
                 };
 
-                // AJAX request
                 $.ajax({
-                    url: "{{ route('cart.sub_qty') }}", // Laravel route
+                    url: "{{ route('cart.sub_qty') }}",
                     type: 'POST',
                     data: JSON.stringify(formData),
                     contentType: 'application/json; charset=utf-8',
@@ -158,14 +158,17 @@
                         'X-CSRF-TOKEN': csrf
                     },
                     success: function(response) {
-                        console.log(response);
+                        const row = button.closest('tr');
+                        row.find('.totalCost').text(response.totalCost);
+                        row.find('input.qty').val(response
+                            .qty);
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr, status, error);
-
                     }
                 });
             });
         });
     </script>
+
 @endsection

@@ -52,7 +52,7 @@ class CartController extends Controller
         $item = Cart::get($request->rowId);
         $row = Cart::update($request->rowId, $item->qty + 1);
         $total = $row->price * $row->qty;
-        return response(['success', 'totalCost' => number_format($total)]);
+        return response(['success', 'totalCost' => number_format($total), 'qty' => $row->qty]);
     }
 
 
@@ -62,8 +62,9 @@ class CartController extends Controller
     public function sub_qty(Request $request)
     {
         $item = Cart::get($request->rowId);
-        Cart::update($request->rowId, $item->qty - 1);
-        return response(['success']);
+        $row = Cart::update($request->rowId, $item->qty - 1);
+        $total = $row->price * $row->qty;
+        return response(['success', 'totalCost' => number_format($total), 'qty' => $row->qty]);
     }
 
 
