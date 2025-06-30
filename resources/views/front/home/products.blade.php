@@ -31,8 +31,8 @@
                                         <div class="rounded position-relative fruite-item">
                                             <a href="#" style="display: inline-block;">
                                                 <div class="fruite-img">
-                                                    {{-- <img src="{{ $product->getImg() }}"
-                                                        class="img-fluid w-100 rounded-top" alt=""> --}}
+                                                    <img src="{{ $product->getImg() }}"
+                                                        class="img-fluid w-100 rounded-top" alt="">
                                                 </div>
                                                 <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                     style="top: 10px; left: 10px;">

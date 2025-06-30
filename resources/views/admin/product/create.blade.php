@@ -78,6 +78,24 @@
                         </div>
 
                         <div class="row mt-3">
+                            <div class="col-md-2">
+                                <label>Image</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="file" name="image" id="image" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                <img id="image_preview" src="{{ asset('admin/images/no_image.jpg') }}" alt="image"
+                                    style="max-width: 100%;">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
                             <div class="col-md-2"></div>
                             <div class="col-md-4">
                                 <input type="submit" value="Create Product" class="btn btn-primary">
@@ -88,4 +106,17 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#image').change(function(e) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#image_preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            })
+
+        });
+    </script>
 @endsection

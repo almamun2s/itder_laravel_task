@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->decimal('price');
             $table->decimal('discount_price')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>SN</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Price</th>
@@ -27,11 +28,11 @@
                             </tr>
                         </thead>
 
-
                         <tbody>
                             @foreach ($products as $key => $product)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    <td><img src="{{ $product->getImg() }}" style="width: 100px;" alt=""></td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->price }}&#2547;</td>

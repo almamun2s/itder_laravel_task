@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProductController extends Controller
 {
@@ -38,12 +40,35 @@ class ProductController extends Controller
             'price' => 'required',
         ]);
 
+        $fileName = null;
+        if ($request->file('image')) {
+            $file = $request->file('image');
+
+            // Renaming the file
+            $fileName = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            if (!file_exists(PUBLIC_PATH . 'uploads/products')) {
+                mkdir(PUBLIC_PATH . 'uploads/products');
+            }
+            // Uploading the file to upload directory
+            $file->move(PUBLIC_PATH . 'uploads', $fileName);
+
+            // Resize the image and move
+            $imageManager = new ImageManager(Driver::class);
+            $image = $imageManager->read("uploads/$fileName");
+            $image->resize(1000, 700);
+            $image->save(PUBLIC_PATH . 'uploads/products/' . $fileName);
+
+            // Deleting image from upload directory
+            unlink(PUBLIC_PATH . 'uploads/' . $fileName);
+        }
+
         Product::create([
             'name' => $request->name,
             'category_id' => (int) $request->category,
             'price' => (float) $request->price,
             'discount_price' => $request->disc_price ? (float) $request->disc_price : null,
             'description' => $request->description,
+            'image' => $fileName,
         ]);
 
 
@@ -79,6 +104,31 @@ class ProductController extends Controller
             'price' => 'required',
         ]);
 
+        if ($request->file('image')) {
+            // Removing previows images
+            if ($product->image && file_exists(PUBLIC_PATH . 'uploads/products/' . $product->image)) {
+                unlink(PUBLIC_PATH . 'uploads/products/' . $product->image);
+            }
+            $file = $request->file('image');
+            // Renaming the file
+            $fileName = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            if (!file_exists(PUBLIC_PATH . 'uploads/products')) {
+                mkdir(PUBLIC_PATH . 'uploads/products');
+            }
+            // Uploading the file to upload directory
+            $file->move(PUBLIC_PATH . 'uploads', $fileName);
+
+            // Resize the image and move
+            $imageManager = new ImageManager(Driver::class);
+            $image = $imageManager->read("uploads/$fileName");
+            $image->resize(1000, 700);
+            $image->save(PUBLIC_PATH . 'uploads/products/' . $fileName);
+            $product->image = $fileName;
+
+            // Deleting image from upload directory
+            unlink(PUBLIC_PATH . 'uploads/' . $fileName);
+        }
+
         $product->name = $request->name;
         $product->description = $request->description;
         $product->category_id = (int) $request->category;
@@ -96,6 +146,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if (($product->image != null) && (file_exists(PUBLIC_PATH . 'uploads/products/' . $product->image))) {
+            unlink(PUBLIC_PATH . 'uploads/products/' . $product->image);
+        }
         $product->delete();
 
         toastr()->info('Product Deleted.');
