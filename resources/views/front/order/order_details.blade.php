@@ -23,13 +23,6 @@
                         <div class="col-md-5">Order Time</div>
                         <div class="col-md-7">{{ $order->created_at->format('d-M-Y h:i:sa') }}</div>
                     </div>
-
-                    @if ($order->is_paid)
-                        <div class="row mt-3">
-                            <div class="col-md-5">Payment Status</div>
-                            <div class="col-md-7"><span class="btn btn-success">Paid</span></div>
-                        </div>
-                    @endif
                 </div>
 
 

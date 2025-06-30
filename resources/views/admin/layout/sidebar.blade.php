@@ -50,15 +50,15 @@
                     class="
                         @if (request()->routeIs('admin.order.index') || request()->routeIs('admin.order.show')) mm-active @endif
                     ">
-                    <a href="#" class="waves-effect">
+                    <a href="{{ route('admin.order.index') }}" class="waves-effect">
                         <i class="fa-solid fa-bag-shopping"></i>
-                        {{-- @php
+                        @php
                             $orders = App\Models\Order::where('status', App\Enum\OrderStatus::PENDING->value)->get();
-                        @endphp --}}
-                        {{-- @if ($orders->count() > 0)
+                        @endphp
+                        @if ($orders->count() > 0)
                             <span
                                 class="badge rounded-pill bg-warning text-black float-end">{{ $orders->count() }}</span>
-                        @endif --}}
+                        @endif
                         <span>Orders</span>
                     </a>
                 </li>
