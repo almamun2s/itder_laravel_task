@@ -28,7 +28,7 @@
                     <h4 class="text-light mb-3">Account</h4>
                     <a class="btn-link" href="{{ route('profile.edit') }}">My Account</a>
                     <a class="btn-link" href="#">Shop</a>
-                    <a class="btn-link" href="#">Cart</a>
+                    <a class="btn-link" href="{{ route('cart.index') }}">Cart</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">

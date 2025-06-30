@@ -46,7 +46,7 @@
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             {{ $product->discount_price ? $product->discount_price : $product->price }}&#2547;
                                                         </p>
-                                                        <a href="#"
+                                                        <a href="{{ route('cart.add', $product) }}"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i>
                                                             Add to
