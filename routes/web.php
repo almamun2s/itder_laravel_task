@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\OrderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/remove_from_cart/{rowId}', 'remove_from_cart')->name('remove_from_cart');
         Route::get('/checkout', 'checkout')->name('checkout');
     });
+    Route::post('/create_order', [OrderController::class, 'create_order'])->name('create_order');
+    Route::get('/order/{order}', [OrderController::class, 'order_details'])->name('order_details');
+
 });
 
 require __DIR__ . '/auth.php';

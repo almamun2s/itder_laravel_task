@@ -84,7 +84,7 @@ class CartController extends Controller
     public function checkout()
     {
         if (Cart::count() == 0) {
-            return redirect()->route('cart');
+            return redirect()->route('cart.index');
         }
         $cart = Cart::content();
         $totalAmount = self::totalAmount(Cart::total());
